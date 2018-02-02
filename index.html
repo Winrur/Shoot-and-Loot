@@ -15,6 +15,11 @@
             // OBJ loader
             var loader = new altspace.utilities.shims.OBJMTLLoader();
 
+            // Load the laser gun 3d model
+            loader.load("models/lasergun.obj", "models/lasergun.mtl", function(lasergun) {
+                sim.scene.add(lasergun);
+            });
+
             // Skeleton
             var skeleton = new altspace.getThreeJSTrackingSkeleton();
             altspace.getThreeJSTrackingSkeleton().then(function(_skeleton) {
@@ -23,12 +28,6 @@
             rightHand = skeleton.getJoint('Hand', 'Right');
             rightHand.add(lasergun);
 });
-
-            // Load the laser gun 3d model, tie it to the hand
-            loader.load("models/lasergun.obj", "models/lasergun.mtl", function(lasergun) {
-                sim.scene.add(lasergun);
-                lasergun.addBehavior(new altspaceutil.behaviors.NativeComponent('n-skeleton-parent', { part: 'hand', side: 'right' }));
-            });
         </script>
     </body>
 </html>
